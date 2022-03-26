@@ -1,2 +1,6 @@
 # Local data
 local/
+
+# Python files
+*.pyc
+__pycache__

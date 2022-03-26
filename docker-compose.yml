@@ -8,6 +8,7 @@ services:
     environment:
       POSTGRES_PASSWORD: pgpass
     volumes:
+      - ./.devcontainer/initdb.d:/docker-entrypoint-initdb.d:ro
       - dbdata:/var/lib/postgresql/data
 
   # Developer service allowing shell to be launched via  docker-compose run devshell

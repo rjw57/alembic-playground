@@ -1,0 +1,2 @@
+CREATE DATABASE alembictest;
+GRANT ALL PRIVILEGES ON DATABASE alembictest TO postgres;
