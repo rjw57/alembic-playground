@@ -1,0 +1,7 @@
+# Customisation of docker-compose.yml for VS Code.
+version: "3.6"
+services:
+  devshell:
+    # Rather than launching a shell, we want the development container to sleep
+    # infinitely.
+    entrypoint: ["/bin/sleep", "infinity"]

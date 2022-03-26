@@ -1,0 +1,29 @@
+version: '3.9'
+
+services:
+  # Postgres Database instance. Username/password: postgres/pgpass
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: pgpass
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+
+  # Developer service allowing shell to be launched via  docker-compose run devshell
+  devshell:
+    build:
+      context: .
+      dockerfile: .devcontainer/Dockerfile.devshell
+    depends_on:
+      - db
+    volumes:
+      - .:/workspace:cached
+    working_dir: /workspace
+
+    # Added to the "dev" profile to avoid it running automatically via "docker-compose up".
+    profiles:
+      - dev
+
+volumes:
+  dbdata:

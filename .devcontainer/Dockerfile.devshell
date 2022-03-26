@@ -1,0 +1,22 @@
+# Base image.
+FROM mcr.microsoft.com/vscode/devcontainers/python:0-3.9
+
+# Build arguments controlling local user name, uid and gid.
+ARG USERNAME=vscode
+ARG USER_UID=1000
+ARG USER_GID=$USER_UID
+
+# Update the developer user.
+RUN groupmod --gid $USER_GID $USERNAME \
+    && usermod --uid $USER_UID --gid $USER_GID $USERNAME \
+    && chown -R $USER_UID:$USER_GID /home/$USERNAME
+
+# Set the default user.
+USER ${USERNAME}
+
+# Requirements
+COPY ./requirements.txt /workspace/requirements.txt
+RUN pip install --user -r /workspace/requirements.txt
+
+# Default entrypoint is to run a shell.
+ENTRYPOINT /bin/bash
